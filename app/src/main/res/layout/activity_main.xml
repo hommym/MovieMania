@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".auth.ui.MainActivity">
+    tools:context=".auth.ui.MainActivity"
+    android:id="@+id/main_layout"
+    >
 
 </androidx.constraintlayout.widget.ConstraintLayout>
