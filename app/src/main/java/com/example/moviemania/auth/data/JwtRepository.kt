@@ -1,21 +1,21 @@
 package com.example.moviemania.auth.data
 
-class JwtRepository(jwtLocalData:JwtLocalDataSource) {
+class JwtRepository( val jwtLocalData:JwtLocalDataSource) {
 
 
 
 
-    fun storeJwt(){
+    suspend fun storeJwt(data:String){
 
-//store jwt token
+        //store jwt token
+        jwtLocalData.storeJwtLocally(data)
 
     }
 
-    fun getJwtLocal():String?{
+     fun getJwtLocal():String?{
 
-//        check local storage for jwt
-        val jwtToken:String?=null
-
+        //check local storage for jwt
+        val jwtToken:String?=jwtLocalData.getJwtLocally()
 
         return jwtToken
     }

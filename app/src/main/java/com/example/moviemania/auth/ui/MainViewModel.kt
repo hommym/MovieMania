@@ -2,15 +2,16 @@ package com.example.moviemania.auth.ui
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import com.example.moviemania.auth.data.JwtRepository
 
 class MainViewModel():ViewModel() {
 
  private var fragmentInstance: Fragment?=null
-
-fun checkJwtLocally():String?{
+ private var jwtRepo:JwtRepository?=null
+ fun checkJwtLocally():String?{
 
 //    checking jwt locally (not implemented)
-    val jwtToken:String?=null
+    val jwtToken:String?=jwtRepo?.getJwtLocal()
 
     return jwtToken
 }
@@ -32,6 +33,10 @@ fun setFragmentInstance(currentFragment:Fragment){
 
     fragmentInstance=currentFragment
 
+}
+
+fun setJwtRepoInstance(repoInstance:JwtRepository){
+    jwtRepo=repoInstance
 }
 
 

@@ -1,21 +1,30 @@
 package com.example.moviemania.auth.ui
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.lifecycleScope
 import com.example.moviemania.R
+import com.example.moviemania.auth.data.JwtLocalDataSource
+import com.example.moviemania.auth.data.JwtRepository
 import com.example.moviemania.video.ui.VideoActivity
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-
+    private  val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name="UserJwtToken")
     val viewModel:MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+// creating instance of jwtRepo
+        viewModel.setJwtRepoInstance(JwtRepository((JwtLocalDataSource(dataStore))))
 
 
     }
@@ -30,15 +39,12 @@ class MainActivity : AppCompatActivity() {
 //        startActivity(intentObj)
 
 
-
         if(viewModel.checkJwtLocally()!=null){
 //            check the validity of jwt
 
         }
         else{
             val fragTransaction=supportFragmentManager.beginTransaction()
-
-
             if(viewModel.getFragInstance()!=null){
                 fragTransaction.add(R.id.main_layout,viewModel.getFragInstance()!!)
             }
@@ -52,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             }
 
 
-          fragTransaction.commit()
+            fragTransaction.commit()
         }
 
 

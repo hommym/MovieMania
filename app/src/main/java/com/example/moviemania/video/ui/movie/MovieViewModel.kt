@@ -16,7 +16,7 @@ class MovieViewModel():ViewModel() {
     fun startVideo(playerView: PlayerView,  context: Context){
 
 //        call method for getting movie url here  NYI
-        val videoUrl="https://mlauahr4tc.b34zobxzxs73nkfxike1.cfd/res/614774a84bca32182e1b81d831542d9a/d9af8ce2bbeb97c0f383771921bdcaa0/Godzilla_x_Kong_The_New_Empire_(2024)_CAMRip_high_(fzmovies.net)_477831242f6f0e6730d6acebeb869508.mp4?fromwebsite"
+        val videoUrl="https://stagatvfiles.com/videos/uploads/2022/01/Peacemaker-S01E01-STAGATV-COM.mp4"
         ExoplayerConfig(videoUrl,playerView,context).preparePlayer().startVideo()
     }
 
