@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.moviemania.R
 import com.example.moviemania.auth.data.JwtLocalDataSource
 import com.example.moviemania.auth.data.JwtRepository
+import com.example.moviemania.components.FragmentNavigator
 import com.example.moviemania.video.ui.VideoActivity
 import kotlinx.coroutines.launch
 
@@ -27,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.setJwtRepoInstance(JwtRepository((JwtLocalDataSource(dataStore))))
 
 
+
+
     }
 
 
@@ -39,26 +42,18 @@ class MainActivity : AppCompatActivity() {
 //        startActivity(intentObj)
 
 
+
+
+
         if(viewModel.checkJwtLocally()!=null){
 //            check the validity of jwt
 
         }
         else{
-            val fragTransaction=supportFragmentManager.beginTransaction()
-            if(viewModel.getFragInstance()!=null){
-                fragTransaction.add(R.id.main_layout,viewModel.getFragInstance()!!)
-            }
-            else{
 
-                val fragInstance=LoginFrag()
+            val fragNav=FragmentNavigator(supportFragmentManager,LoginFrag(),R.id.main_layout,viewModel,"LoginFrag")
+            fragNav.addFragment()
 
-//                saving fragment instance
-                viewModel.setFragmentInstance(fragInstance)
-                fragTransaction.add(R.id.main_layout,fragInstance)
-            }
-
-
-            fragTransaction.commit()
         }
 
 

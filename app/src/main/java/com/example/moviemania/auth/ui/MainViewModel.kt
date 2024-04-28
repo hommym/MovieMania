@@ -3,8 +3,9 @@ package com.example.moviemania.auth.ui
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.example.moviemania.auth.data.JwtRepository
+import com.example.moviemania.components.BaseViewModel
 
-class MainViewModel():ViewModel() {
+class MainViewModel():ViewModel(),BaseViewModel {
 
  private var fragmentInstance: Fragment?=null
  private var jwtRepo:JwtRepository?=null
@@ -25,11 +26,11 @@ fun checkJwtValidity():String?{
     return jwtToken
 }
 
-fun getFragInstance():Fragment?{
+override fun getFragInstance():Fragment?{
 
     return fragmentInstance
 }
-fun setFragmentInstance(currentFragment:Fragment){
+override fun setFragmentInstance(currentFragment:Fragment){
 
     fragmentInstance=currentFragment
 
