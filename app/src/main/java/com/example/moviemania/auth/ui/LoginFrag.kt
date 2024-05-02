@@ -1,14 +1,23 @@
 package com.example.moviemania.auth.ui
 
+import android.animation.Animator
+import android.animation.LayoutTransition
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.moviemania.R
+import com.example.moviemania.auth.component.LayoutAnimator
 import com.example.moviemania.components.FragmentNavigator
 import com.example.moviemania.databinding.FragmentLoginBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +34,7 @@ class LoginFrag : Fragment() {
 
     lateinit var views:FragmentLoginBinding
     private val fragActivityViewModel:MainViewModel by activityViewModels()
+    private lateinit var  layoutAnimator:LayoutAnimator
 
 
     override fun onCreateView(
@@ -35,14 +45,23 @@ class LoginFrag : Fragment() {
         // Inflate the layout for this fragment
         views= FragmentLoginBinding.inflate(inflater, container, false)
 
+//   setting animation for the child views in layout
+         layoutAnimator=LayoutAnimator(views.loginMainLayout)
+         layoutAnimator.settingUpAnimationConfigs()
+
         return views.root
     }
 
     override fun onResume() {
         super.onResume()
 
+        lifecycleScope.launch(Dispatchers.Main) {
+        layoutAnimator.startAnimation()
+
+        }
 
         views.loginButton.setOnClickListener {
+
 
         }
 

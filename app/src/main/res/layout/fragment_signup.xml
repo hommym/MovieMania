@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout2"
+    android:id="@+id/SignupMainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E8040404"
@@ -16,8 +16,10 @@
         android:layout_marginTop="20dp"
         android:foreground="?attr/selectableItemBackground"
         android:src="@drawable/round_arrow_back_ios_new_24"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/textView"
@@ -31,27 +33,29 @@
         android:text="Create Account"
         android:textColor="@color/white"
         android:textSize="40sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
-        android:layout_marginLeft="21dp"
         android:layout_marginEnd="21dp"
-        android:layout_marginRight="21dp"
         android:layout_marginBottom="70dp"
         android:paddingStart="15dp"
         android:text="Please fill the input below here"
         android:textColor="#8A8A8A"
         android:textSize="19sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:visibility="visible" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
@@ -61,6 +65,7 @@
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="20dp"
         android:textColorHint="#8A8A8A"
+        android:visibility="invisible"
         app:boxStrokeColor="#00FFFFFF"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
@@ -68,7 +73,8 @@
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:visibility="visible">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signup_name"
@@ -93,6 +99,7 @@
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="20dp"
         android:textColorHint="#8A8A8A"
+        android:visibility="invisible"
         app:boxStrokeColor="#00FFFFFF"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
@@ -100,7 +107,8 @@
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
+        tools:visibility="visible">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signup_phone_number"
@@ -125,6 +133,7 @@
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="20dp"
         android:textColorHint="#8A8A8A"
+        android:visibility="invisible"
         app:boxStrokeColor="#00FFFFFF"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
@@ -132,7 +141,8 @@
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
+        tools:visibility="visible">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signup_email"
@@ -157,6 +167,7 @@
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="20dp"
         android:textColorHint="#8A8A8A"
+        android:visibility="invisible"
         app:boxStrokeColor="#00FFFFFF"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
@@ -165,7 +176,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout5"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        tools:visibility="visible">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signup_password"
@@ -191,6 +203,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="21dp"
         android:textColorHint="#8A8A8A"
+        android:visibility="invisible"
         app:boxStrokeColor="#00FFFFFF"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
@@ -199,7 +212,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="#8A8A8A">
+        app:passwordToggleTint="#8A8A8A"
+        tools:visibility="visible">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signup_confirm_password"
@@ -226,9 +240,11 @@
         android:backgroundTint="#07EDBD"
         android:text="sign up"
         android:textColor="@color/black"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7"
+        tools:visibility="visible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

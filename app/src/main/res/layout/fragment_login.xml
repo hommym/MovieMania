@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/loginMainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E8040404"
@@ -17,13 +17,13 @@
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="30dp"
         android:src="@drawable/baseline_person_24"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/appTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/appTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
@@ -34,13 +34,15 @@
         android:text="MovieMania Login"
         android:textColor="@color/white"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/screenDescriptionText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/screenDescriptionText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
@@ -50,27 +52,31 @@
         android:text="Please sign in to continue"
         android:textColor="#8A8A8A"
         android:textSize="19sp"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/emailFieldWrapper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/appTitle"
+        tools:visibility="visible" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/emailFieldWrapper"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="21dp"
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="20dp"
         android:textColorHint="#8A8A8A"
+        android:visibility="invisible"
         app:boxStrokeColor="#00FFFFFF"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
         app:hintTextColor="#8A8A8A"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/passwordFieldWrapper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/screenDescriptionText"
+        tools:visibility="visible">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_email"
@@ -89,13 +95,14 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
+        android:id="@+id/passwordFieldWrapper"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="21dp"
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="26dp"
         android:textColorHint="#8A8A8A"
+        android:visibility="invisible"
         app:boxStrokeColor="#00FFFFFF"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
@@ -103,8 +110,9 @@
         app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-        app:passwordToggleTint="#8A8A8A">
+        app:layout_constraintTop_toBottomOf="@+id/emailFieldWrapper"
+        app:passwordToggleTint="#8A8A8A"
+        tools:visibility="visible">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_password"
@@ -132,13 +140,15 @@
         android:foreground="?attr/selectableItemBackground"
         android:text="LOGIN"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/resetPasswordButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordFieldWrapper"
+        tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/resetPasswordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
@@ -146,13 +156,15 @@
         android:text="Forgot Password"
         android:textColor="#07EDBD"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/create_account_button"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/createAccountButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button" />
+        app:layout_constraintTop_toBottomOf="@+id/login_button"
+        tools:visibility="visible" />
 
     <Button
-        android:id="@+id/create_account_button"
+        android:id="@+id/createAccountButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
@@ -160,10 +172,12 @@
         android:foreground="?attr/selectableItemBackground"
         android:text="create account"
         android:textColor="@color/white"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/resetPasswordButton"
+        tools:visibility="visible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
