@@ -10,9 +10,9 @@ import android.widget.Button
 import android.widget.ProgressBar
 import kotlinx.coroutines.delay
 
-class LayoutAnimator(val layout:ViewGroup,val context:Context) {
+class LayoutAnimator(private val layout:ViewGroup, val context:Context) {
 
-   val layoutTransObj= LayoutTransition()
+   private val layoutTransObj= LayoutTransition()
 
 
    fun settingUpAnimationConfigs(){

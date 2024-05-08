@@ -67,6 +67,11 @@ class LoginFrag : Fragment() {
             val fragNav=FragmentNavigator(parentFragmentManager,SignupFrag(),R.id.main_layout,fragActivityViewModel,"SignUpTag")
             fragNav.replaceFragment()
         }
+
+
+        views.resetPasswordButton.setOnClickListener {
+            PasswordResetFrag().show(childFragmentManager,"PasswordResetFrag")
+        }
     }
 
 
