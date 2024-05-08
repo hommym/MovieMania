@@ -1,14 +1,11 @@
 package com.example.moviemania.auth.ui
 
-import android.animation.Animator
-import android.animation.LayoutTransition
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.moviemania.R
@@ -16,7 +13,6 @@ import com.example.moviemania.auth.component.LayoutAnimator
 import com.example.moviemania.components.FragmentNavigator
 import com.example.moviemania.databinding.FragmentLoginBinding
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,7 +42,7 @@ class LoginFrag : Fragment() {
         views= FragmentLoginBinding.inflate(inflater, container, false)
 
 //   setting animation for the child views in layout
-         layoutAnimator=LayoutAnimator(views.loginMainLayout)
+         layoutAnimator=LayoutAnimator(views.loginMainLayout,requireContext())
          layoutAnimator.settingUpAnimationConfigs()
 
         return views.root
@@ -56,12 +52,14 @@ class LoginFrag : Fragment() {
         super.onResume()
 
         lifecycleScope.launch(Dispatchers.Main) {
-        layoutAnimator.startAnimation()
+        layoutAnimator.startEnteranceAnimationForViews(views.loadingSpinner)
 
         }
 
         views.loginButton.setOnClickListener {
-
+            lifecycleScope.launch(Dispatchers.Main) {
+                layoutAnimator.startButtonClickAnimation(it as Button,views.loadingSpinner)
+            }
 
         }
 

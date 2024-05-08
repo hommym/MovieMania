@@ -231,13 +231,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/signup_button"
+        android:id="@+id/signupButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="71dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="71dp"
-        android:backgroundTint="#07EDBD"
+        android:backgroundTint="#C1F116"
         android:text="sign up"
         android:textColor="@color/black"
         android:visibility="invisible"
@@ -245,6 +245,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout7"
         tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/loadingSpinnerC"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/signupButton"
+        app:layout_constraintStart_toStartOf="@+id/signupButton"
+        app:layout_constraintTop_toTopOf="@+id/signupButton"
+        tools:visibility="invisible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

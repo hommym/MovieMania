@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.moviemania.R
 import com.example.moviemania.auth.component.LayoutAnimator
 import com.example.moviemania.components.FragmentNavigator
 import com.example.moviemania.databinding.FragmentSignupBinding
@@ -42,7 +42,7 @@ class SignupFrag : Fragment() {
 
 
         //   setting animation for the child views in layout
-        layoutAnimator=LayoutAnimator(views.SignupMainLayout)
+        layoutAnimator=LayoutAnimator(views.SignupMainLayout,requireContext())
         layoutAnimator.settingUpAnimationConfigs()
 
 
@@ -55,12 +55,19 @@ class SignupFrag : Fragment() {
 
 
         lifecycleScope.launch(Dispatchers.Main) {
-            layoutAnimator.startAnimation()
+            layoutAnimator.startEnteranceAnimationForViews(views.loadingSpinnerC)
 
         }
 
         views.signupBackButton.setOnClickListener {
             FragmentNavigator.back(parentFragmentManager)
+        }
+
+        views.signupButton.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.Main) {
+                layoutAnimator.startButtonClickAnimation(it as Button,views.loadingSpinnerC)
+            }
+
         }
     }
 
