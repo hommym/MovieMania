@@ -5,7 +5,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 
 //used in activities to control what happens when back button is press
-class BackPressController(val context:Context,private val layoutIdForFragments:Int) {
+class BackPressController(val context:Context) {
 
 
     fun backPressListener(){

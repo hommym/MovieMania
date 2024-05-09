@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.setJwtRepoInstance(JwtRepository((JwtLocalDataSource(dataStore))))
 
         //setting up backPress controller
-        BackPressController(this@MainActivity,R.id.main_layout).backPressListener()
+        BackPressController(this@MainActivity).backPressListener()
 
     }
 
