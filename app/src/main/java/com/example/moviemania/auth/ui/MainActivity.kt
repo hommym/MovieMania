@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.moviemania.R
 import com.example.moviemania.auth.data.JwtLocalDataSource
 import com.example.moviemania.auth.data.JwtRepository
+import com.example.moviemania.components.BackPressController
 import com.example.moviemania.components.FragmentNavigator
 import com.example.moviemania.video.ui.VideoActivity
 import kotlinx.coroutines.launch
@@ -27,8 +28,8 @@ class MainActivity : AppCompatActivity() {
 // creating instance of jwtRepo
         viewModel.setJwtRepoInstance(JwtRepository((JwtLocalDataSource(dataStore))))
 
-
-
+        //setting up backPress controller
+        BackPressController(this@MainActivity,R.id.main_layout).backPressListener()
 
     }
 
