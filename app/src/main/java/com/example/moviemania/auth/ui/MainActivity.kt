@@ -52,7 +52,11 @@ class MainActivity : AppCompatActivity() {
         }
         else{
 
-            val fragNav=FragmentNavigator(supportFragmentManager,LoginFrag(),R.id.main_layout,viewModel,"LoginFrag")
+            val fragNav=FragmentNavigator(supportFragmentManager,LoginFrag(),
+            R.id.main_layout,"LoginFrag")
+            if(viewModel.fragmentNavigator==null){
+                viewModel.fragmentNavigator=fragNav
+            }
             fragNav.addFragment()
 
         }

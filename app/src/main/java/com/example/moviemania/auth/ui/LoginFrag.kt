@@ -64,8 +64,7 @@ class LoginFrag : Fragment() {
         }
 
         views.createAccountButton.setOnClickListener {
-            val fragNav=FragmentNavigator(parentFragmentManager,SignupFrag(),R.id.main_layout,fragActivityViewModel,"SignUpTag")
-            fragNav.replaceFragment()
+            fragActivityViewModel.fragmentNavigator?.replaceFragment(SignupFrag())
         }
 
 

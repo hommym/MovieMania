@@ -10,10 +10,10 @@ import com.example.moviemania.auth.ui.LoginFrag
 
 class FragmentNavigator(
     private val fragmentManager:FragmentManager, private val nextFragment:Fragment,
-    private val layoutId:Int, private val  viewModel:BaseViewModel,var fragTag:String?=null) {
+    private val layoutId:Int,private var fragTag:String?=null) {
 
 
-    private val fragTransaction=fragmentManager.beginTransaction()
+
 
     companion object{
         fun back(fragmentManager:FragmentManager){
@@ -25,6 +25,7 @@ class FragmentNavigator(
 
 
         if ( fragmentManager.findFragmentById(layoutId)==null){
+            val fragTransaction=fragmentManager.beginTransaction()
             fragTransaction.add(layoutId,nextFragment)
             fragTransaction.addToBackStack(fragTag)
             fragTransaction.commit()
@@ -35,9 +36,10 @@ class FragmentNavigator(
     }
 
 
-    fun replaceFragment(){
-//                saving fragment instance
-        fragTransaction.replace(layoutId,nextFragment)
+    fun replaceFragment(fragmentInstance:Fragment){
+//               replacing fragment
+        val fragTransaction=fragmentManager.beginTransaction()
+        fragTransaction.replace(layoutId,fragmentInstance)
         fragTransaction.addToBackStack(fragTag)
         fragTransaction.commit()
     }

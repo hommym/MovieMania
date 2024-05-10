@@ -4,11 +4,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.example.moviemania.auth.data.JwtRepository
 import com.example.moviemania.components.BaseViewModel
+import com.example.moviemania.components.FragmentNavigator
 
 class MainViewModel():ViewModel(),BaseViewModel {
 
  private var fragmentInstance: Fragment?=null
  private var jwtRepo:JwtRepository?=null
+
+//    only set this property when using it in an activity
+ override   var fragmentNavigator:FragmentNavigator?=null
  fun checkJwtLocally():String?{
 
 //    checking jwt locally (not implemented)
@@ -26,15 +30,7 @@ fun checkJwtValidity():String?{
     return jwtToken
 }
 
-override fun getFragInstance():Fragment?{
 
-    return fragmentInstance
-}
-override fun setFragmentInstance(currentFragment:Fragment){
-
-    fragmentInstance=currentFragment
-
-}
 
 fun setJwtRepoInstance(repoInstance:JwtRepository){
     jwtRepo=repoInstance
