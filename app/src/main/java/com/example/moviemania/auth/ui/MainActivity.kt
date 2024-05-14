@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-// creating instance of jwtRepo
+        // creating instance of jwtRepo
         viewModel.setJwtRepoInstance(JwtRepository((JwtLocalDataSource(dataStore))))
 
         //setting up backPress controller
@@ -66,4 +66,10 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onStop() {
+        super.onStop()
+        finish()
+    }
+
 }
