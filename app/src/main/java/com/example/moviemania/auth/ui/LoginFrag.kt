@@ -56,7 +56,7 @@ class LoginFrag : Fragment() {
 
 //                moving to home activity
                    startActivity(Intent(requireContext(),HomeActivity::class.java))
-
+                   requireActivity().finish()
             }
 
         }
@@ -67,7 +67,7 @@ class LoginFrag : Fragment() {
 
 
         views.resetPasswordButton.setOnClickListener {
-            PasswordResetFrag().show(childFragmentManager,"PasswordResetFrag")
+            PasswordResetFrag().show(parentFragmentManager,"PasswordResetFrag")
         }
     }
 

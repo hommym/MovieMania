@@ -1,21 +1,18 @@
 package com.example.moviemania.auth.ui
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.lifecycleScope
 import com.example.moviemania.R
 import com.example.moviemania.auth.data.JwtLocalDataSource
 import com.example.moviemania.auth.data.JwtRepository
 import com.example.moviemania.components.BackPressController
 import com.example.moviemania.components.FragmentNavigator
-import com.example.moviemania.video.ui.VideoActivity
-import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,6 +31,28 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onStart() {
+        super.onStart()
+        if(viewModel.fragmentNavigator==null){
+            viewModel.fragmentNavigator=FragmentNavigator(supportFragmentManager,LoginFrag(),
+                R.id.main_layout,"LoginFrag")
+        }
+        //  resetting fragmentManager during configuration  changes
+        viewModel.fragmentNavigator?.fragmentManager=supportFragmentManager
+
+
+
+        if(viewModel.checkJwtLocally()!=null){
+//            check the validity of jwt
+
+        }
+        else{
+
+            viewModel.fragmentNavigator?.addFragment()
+        }
+    }
+
+
     override fun onResume() {
         super.onResume()
 
@@ -44,32 +63,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
-        if(viewModel.checkJwtLocally()!=null){
-//            check the validity of jwt
-
-        }
-        else{
-
-            val fragNav=FragmentNavigator(supportFragmentManager,LoginFrag(),
-            R.id.main_layout,"LoginFrag")
-            if(viewModel.fragmentNavigator==null){
-                viewModel.fragmentNavigator=fragNav
-            }
-            fragNav.addFragment()
-
-        }
-
-
-
-
-
     }
 
-    override fun onStop() {
-        super.onStop()
-        finish()
-    }
 
 }

@@ -15,7 +15,7 @@ class BackPressController(val context:Context) {
          override fun handleOnBackPressed() {
                   val fragmentManager=context.supportFragmentManager
 
-             if(fragmentManager.backStackEntryCount==1){
+             if(fragmentManager.backStackEntryCount<=1){
                  context.finish()
              }
              else{

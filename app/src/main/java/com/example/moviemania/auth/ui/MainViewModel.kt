@@ -8,7 +8,7 @@ import com.example.moviemania.components.FragmentNavigator
 
 class MainViewModel():ViewModel(),BaseViewModel {
 
- private var fragmentInstance: Fragment?=null
+
  private var jwtRepo:JwtRepository?=null
 
 //    only set this property when using it in an activity
