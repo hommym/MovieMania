@@ -30,6 +30,10 @@ class HomeActivity : AppCompatActivity() {
         if(viewModel.fragmentNavigator==null){
             viewModel.fragmentNavigator=  FragmentNavigator(supportFragmentManager,HomeFragment(),
                 R.id.layoutForHomeFragments, addToBackstack = false)
+
+        //            setting the default tab when activity starts for the first time
+            viewModel.currentTab=R.id.home_tab
+
         }
         //  resetting fragmentManager during configuration  changes
         viewModel.fragmentNavigator?.fragmentManager=supportFragmentManager
@@ -42,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
             when(menuItem.itemId){
 
                 R.id.home_tab->{
-
+                    viewModel.currentTab=R.id.home_tab
                     viewModel.fragmentNavigator?.addFragment()
                     if(supportFragmentManager.findFragmentById(R.id.layoutForHomeFragments)!=null){
                         viewModel.fragmentNavigator?.replaceFragment(HomeFragment())
@@ -54,22 +58,26 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 R.id.movies_tab->{
+                    viewModel.currentTab=R.id.movies_tab
                     viewModel.fragmentNavigator?.replaceFragment(MoviesFragment())
                     true
                 }
 
                 R.id.tv_series_tab->{
+                    viewModel.currentTab=R.id.tv_series_tab
                     viewModel.fragmentNavigator?.replaceFragment(SeriesFragment())
                     true
                 }
 
                 R.id.watch_list_tab->{
+                    viewModel.currentTab=R.id.watch_list_tab
                     viewModel.fragmentNavigator?.replaceFragment(WatchLaterFragment())
                     true
                 }
 
 
                 else -> {
+                    viewModel.currentTab=R.id.me_tab
                     viewModel.fragmentNavigator?.replaceFragment(MeFragment())
                     true
                 }
@@ -77,7 +85,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         //        selecting the home tab of bottom navBar by default
-        views.bottomNavigation.selectedItemId=R.id.home_tab
+        views.bottomNavigation.selectedItemId=viewModel.currentTab!!
 
         views.bottomNavigation.setOnItemReselectedListener {
             Toast.makeText(this@HomeActivity,"I am",Toast.LENGTH_SHORT).show()
