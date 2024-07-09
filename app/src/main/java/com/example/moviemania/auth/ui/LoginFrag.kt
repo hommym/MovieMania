@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.moviemania.auth.component.LayoutAnimator
@@ -52,11 +53,19 @@ class LoginFrag : Fragment() {
             lifecycleScope.launch(Dispatchers.Main) {
                 layoutAnimator.startButtonClickAnimation(it as Button,views.loadingSpinner)
 //                the delay is simulate the request sent to server
-                delay(2000)
+               val remoteJwt= fragActivityViewModel.getJwtRemotely(views.loginEmail.text.toString(),views.loginPassword.text.toString())
 
-//                moving to home activity
+               if(remoteJwt!=null){
+                   //                moving to home activity
                    startActivity(Intent(requireContext(),HomeActivity::class.java))
                    requireActivity().finish()
+               }
+                else{
+//                   This just temporary
+                 Toast.makeText(requireContext(),"Invalid Credentials",Toast.LENGTH_SHORT).show()
+               }
+
+
             }
 
         }

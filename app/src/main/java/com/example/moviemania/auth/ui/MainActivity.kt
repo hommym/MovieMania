@@ -8,10 +8,14 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.moviemania.R
+import com.example.moviemania.auth.component.LoginResponse
 import com.example.moviemania.auth.data.JwtLocalDataSource
+import com.example.moviemania.auth.data.JwtRemoteDataSource
 import com.example.moviemania.auth.data.JwtRepository
+import com.example.moviemania.components.AppConfigurations
 import com.example.moviemania.components.BackPressController
 import com.example.moviemania.components.FragmentNavigator
+import com.example.moviemania.components.libs.RetrofitConfigs
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +27,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // creating instance of jwtRepo
-        viewModel.setJwtRepoInstance(JwtRepository((JwtLocalDataSource(dataStore))))
+        viewModel.setJwtRepoInstance(JwtRepository((JwtLocalDataSource(dataStore))
+        ,RetrofitConfigs(AppConfigurations.baseUrlBackend).config(JwtRemoteDataSource::class.java)))
 
         //setting up backPress controller
         BackPressController(this@MainActivity).backPressListener()

@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.example.moviemania.auth.data.JwtRepository
 import com.example.moviemania.components.BaseViewModel
 import com.example.moviemania.components.FragmentNavigator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class MainViewModel():ViewModel(),BaseViewModel {
 
@@ -20,6 +22,14 @@ class MainViewModel():ViewModel(),BaseViewModel {
 
     return jwtToken
 }
+
+ suspend fun getJwtRemotely(email:String,password:String):String?{
+   return  withContext(Dispatchers.IO){
+         jwtRepo?.getRemoteJwt(email,password)
+     }
+    }
+
+
 
 fun checkJwtValidity():String?{
 
