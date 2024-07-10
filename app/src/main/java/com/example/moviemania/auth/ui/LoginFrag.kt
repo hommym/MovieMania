@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +15,6 @@ import com.example.moviemania.auth.component.LayoutAnimator
 import com.example.moviemania.databinding.FragmentLoginBinding
 import com.example.moviemania.home.ui.HomeActivity
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -24,6 +24,16 @@ class LoginFrag : Fragment() {
     lateinit var views:FragmentLoginBinding
     private val fragActivityViewModel:MainViewModel by activityViewModels()
     private lateinit var  layoutAnimator:LayoutAnimator
+
+//    the disableEditText when called either allows(when true is passed into it) or prevent(when nothing is passed into it)
+//    users from interacting with the editText the function was called on
+    private fun EditText.disableEditText(enable:Boolean=false):EditText{
+        this.isEnabled=enable
+        this.isFocusable=enable
+        this.isFocusableInTouchMode=enable
+        this.isCursorVisible=enable
+        return  this
+    }
 
 
     override fun onCreateView(
@@ -50,23 +60,43 @@ class LoginFrag : Fragment() {
         }
 
         views.loginButton.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.Main) {
-                layoutAnimator.startButtonClickAnimation(it as Button,views.loadingSpinner)
-//                the delay is simulate the request sent to server
-               val remoteJwt= fragActivityViewModel.getJwtRemotely(views.loginEmail.text.toString(),views.loginPassword.text.toString())
 
-               if(remoteJwt!=null){
-                   //                moving to home activity
-                   startActivity(Intent(requireContext(),HomeActivity::class.java))
-                   requireActivity().finish()
-               }
-                else{
+//            checking if the relevant text fields are not empty before sending request
+            if(views.loginEmail.text.toString().isNotEmpty()&&views.loginPassword.text.toString().isNotEmpty()){
+
+//                disabling the email and password text field
+                views.loginEmail.disableEditText()
+                views.loginPassword.disableEditText()
+
+                lifecycleScope.launch(Dispatchers.Main) {
+                    layoutAnimator.startButtonClickAnimation(it as Button,views.loadingSpinner)
+//                the request sent to server
+                    val remoteJwt= fragActivityViewModel.getJwtRemotely(views.loginEmail.text.toString(),views.loginPassword.text.toString())
+
+                    if(remoteJwt!=null){
+                        //                moving to home activity
+                        startActivity(Intent(requireContext(),HomeActivity::class.java))
+                        requireActivity().finish()
+                    }
+                    else{
+
+//                        enabling email and password text fields
+                        views.loginEmail.disableEditText(true)
+                        views.loginPassword.disableEditText(true)
+
 //                   This just temporary
-                 Toast.makeText(requireContext(),"Invalid Credentials",Toast.LENGTH_SHORT).show()
-               }
+                        Toast.makeText(requireContext(),"Invalid Credentials",Toast.LENGTH_SHORT).show()
+                    }
 
 
+                }
             }
+            else{
+                Toast.makeText(requireContext(),"All Fields must be filled",Toast.LENGTH_SHORT).show()
+            }
+
+
+
 
         }
 
@@ -79,6 +109,8 @@ class LoginFrag : Fragment() {
             PasswordResetFrag().show(parentFragmentManager,"PasswordResetFrag")
         }
     }
+
+
 
 
 }
