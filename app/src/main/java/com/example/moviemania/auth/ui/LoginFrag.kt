@@ -69,6 +69,7 @@ class LoginFrag : Fragment() {
                 views.loginPassword.disableEditText()
 
                 lifecycleScope.launch(Dispatchers.Main) {
+//                  starting button to make button dissappear
                     layoutAnimator.startButtonClickAnimation(it as Button,views.loadingSpinner)
 //                the request sent to server
                     val remoteJwt= fragActivityViewModel.getJwtRemotely(views.loginEmail.text.toString(),views.loginPassword.text.toString())
@@ -79,6 +80,8 @@ class LoginFrag : Fragment() {
                         requireActivity().finish()
                     }
                     else{
+//                      reversing button animation to bring back button
+                        layoutAnimator.startButtonClickAnimation(it as Button,views.loadingSpinner,true)
 
 //                        enabling email and password text fields
                         views.loginEmail.disableEditText(true)
