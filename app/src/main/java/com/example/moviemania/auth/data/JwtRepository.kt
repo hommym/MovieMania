@@ -2,6 +2,7 @@ package com.example.moviemania.auth.data
 
 import android.util.Log
 import com.example.moviemania.auth.component.LoginBody
+import com.example.moviemania.components.ApiError
 
 class JwtRepository(private val jwtLocalData:JwtLocalDataSource, private val jwtRemoteData:JwtRemoteDataSource) {
 
@@ -9,7 +10,9 @@ class JwtRepository(private val jwtLocalData:JwtLocalDataSource, private val jwt
 
 
     fun getRemoteJwt(email:String,password:String):String?{
-// This method returns a Jwt token when everything is successfully but a null if something goes wrong
+// This method returns a Jwt token when everything is successfully , a null if there is network error
+//  and throws an error if the request was not successfully
+
         return try {
             //        getting the jwt form backend
             val response= jwtRemoteData.getJwtRemotely(LoginBody(email,password)).execute()
@@ -17,11 +20,18 @@ class JwtRepository(private val jwtLocalData:JwtLocalDataSource, private val jwt
             if(response.isSuccessful){
                 response.body()?.token
             } else{
-                throw Exception("Request Failed \nReason:${response.message()}")
+
+                Log.d("LogInError","${response.code()}")
+                throw (ApiError(response.errorBody()).extractMessage())
             }
         } catch (error:Exception){
-            Log.d("LogInError","$error")
-            null
+            Log.d("LogInError","${error.message}")
+            if(error is ApiError){
+                throw Exception(error.message)
+            }
+            else{
+                null
+            }
         }
 
     }
@@ -34,7 +44,7 @@ class JwtRepository(private val jwtLocalData:JwtLocalDataSource, private val jwt
 
     }
 
-     fun getJwtLocal():String?{
+  suspend   fun getJwtLocal():String?{
 
         //check local storage for jwt
         val jwtToken:String?=jwtLocalData.getJwtLocally()

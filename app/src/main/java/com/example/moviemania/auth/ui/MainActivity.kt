@@ -1,12 +1,14 @@
 package com.example.moviemania.auth.ui
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.lifecycleScope
 import com.example.moviemania.R
 import com.example.moviemania.auth.component.LoginResponse
 import com.example.moviemania.auth.data.JwtLocalDataSource
@@ -16,6 +18,9 @@ import com.example.moviemania.components.AppConfigurations
 import com.example.moviemania.components.BackPressController
 import com.example.moviemania.components.FragmentNavigator
 import com.example.moviemania.components.libs.RetrofitConfigs
+import com.example.moviemania.home.ui.HomeActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -44,17 +49,23 @@ class MainActivity : AppCompatActivity() {
         }
         //  resetting fragmentManager during configuration  changes
         viewModel.fragmentNavigator?.fragmentManager=supportFragmentManager
-
-
-
+    lifecycleScope.launch(Dispatchers.Main) {
         if(viewModel.checkJwtLocally()!=null){
-//            check the validity of jwt
+//            check the validity of jwt(not yet implemented)
+
+            //                moving to home activity
+            startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+            finish()
 
         }
         else{
 
             viewModel.fragmentNavigator?.addFragment()
         }
+    }
+
+
+
     }
 
 
