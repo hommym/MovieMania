@@ -52,16 +52,28 @@ class LayoutAnimator(private val layout:ViewGroup, val context:Context) {
    }
 
 
-   suspend fun startButtonClickAnimation(button:Button,loadingSpinner:ProgressBar){
+   suspend fun startButtonClickAnimation(button:Button,loadingSpinner:ProgressBar,reverseFlag:Boolean=false){
 
 //      changing appearing animation for the layout
-      layoutTransObj.setAnimator(
-         LayoutTransition.APPEARING,
-         ObjectAnimator.ofFloat(loadingSpinner,"translationY",-50f,0f))
 
-      button.visibility=View.INVISIBLE
-      delay(200)
-      loadingSpinner.visibility=View.VISIBLE
+
+      if(reverseFlag){
+         layoutTransObj.setAnimator(
+            LayoutTransition.APPEARING,
+            ObjectAnimator.ofFloat(loadingSpinner,"translationX",-400f,0f))
+         loadingSpinner.visibility=View.INVISIBLE
+         delay(200)
+         button.visibility=View.VISIBLE
+      }
+      else{
+         layoutTransObj.setAnimator(
+            LayoutTransition.APPEARING,
+            ObjectAnimator.ofFloat(loadingSpinner,"translationY",-50f,0f))
+         button.visibility=View.INVISIBLE
+         delay(200)
+         loadingSpinner.visibility=View.VISIBLE
+      }
+
    }
 
 
