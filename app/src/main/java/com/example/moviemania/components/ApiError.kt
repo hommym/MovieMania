@@ -11,7 +11,7 @@ class ApiError(private var errBody:ResponseBody?=null, private var errorMessage:
 
     fun extractMessage():ApiError{
        this.errorMessage=(Gson().fromJson(errBody!!.string()  ,ApiErrorResponse::class.java)).err
-        Log.d("LogInError","$errorMessage")
+        Log.d("LogInError", errorMessage)
         return ApiError(errorMessage=this.errorMessage)
     }
 

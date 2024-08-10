@@ -18,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
+
 class LoginFrag : Fragment() {
 
 
@@ -82,7 +83,9 @@ class LoginFrag : Fragment() {
                             Toast.makeText(requireContext(),"Login Successfull",Toast.LENGTH_SHORT).show()
 
                             //                moving to home activity
-                            startActivity(Intent(requireContext(),HomeActivity::class.java))
+                            val intent=Intent(requireContext(), HomeActivity::class.java)
+                            intent.putExtra("jwtToken",fragActivityViewModel.checkJwtLocally())
+                            startActivity(intent)
                             requireActivity().finish()
                         }
                         else{
@@ -127,3 +130,5 @@ class LoginFrag : Fragment() {
 
 
 }
+
+

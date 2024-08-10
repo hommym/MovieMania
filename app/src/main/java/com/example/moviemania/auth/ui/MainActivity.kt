@@ -51,12 +51,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.fragmentNavigator?.fragmentManager=supportFragmentManager
     lifecycleScope.launch(Dispatchers.Main) {
         if(viewModel.checkJwtLocally()!=null){
-//            check the validity of jwt(not yet implemented)
-
             //                moving to home activity
-            startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+            val intent=Intent(this@MainActivity, HomeActivity::class.java)
+            intent.putExtra("jwtToken",viewModel.checkJwtLocally())
+            startActivity(intent)
             finish()
-
         }
         else{
 
