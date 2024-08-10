@@ -46,7 +46,6 @@ class HomeActivity : AppCompatActivity() {
         viewModel.jwtToken= intent.getStringExtra("jwtToken")
 
         // setting up home tab live data
-
         lifecycleScope.launch(Dispatchers.Main) {
 
             viewModel.homeFragmentLiveData.observe(this@HomeActivity, Observer {
@@ -68,11 +67,13 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
+
         setContentView(views.root)
     }
 
     override fun onStart() {
         super.onStart()
+
 
         views.bottomNavigation.setOnItemSelectedListener {menuItem->
 
@@ -82,9 +83,11 @@ class HomeActivity : AppCompatActivity() {
 
                 R.id.home_tab->{
                     viewModel.currentTab=R.id.home_tab
-                    viewModel.fragmentNavigator?.addFragment()
                     if(supportFragmentManager.findFragmentById(R.id.layoutForHomeFragments)!=null){
                         viewModel.fragmentNavigator?.replaceFragment(HomeFragment())
+                    }
+                    else{
+                        viewModel.fragmentNavigator?.addFragment()
                     }
 
 
@@ -118,11 +121,9 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
-//        views.bottomNavigation.setOnItemReselectedListener {
-//            Toast.makeText(this@HomeActivity,"I am",Toast.LENGTH_SHORT).show()
-//        }
-        // updating the data in the liveData during configuration changes
-//        viewModel.homeFragmentLiveData.value=viewModel.homeFragmentData
+
+//         updating the data in the liveData during configuration changes
+        viewModel.homeFragmentLiveData.value=viewModel.homeFragmentData
 
         if(viewModel.fragmentNavigator==null){
         val errorHandler= CoroutineExceptionHandler { _, throwable ->
@@ -157,12 +158,11 @@ class HomeActivity : AppCompatActivity() {
                 homeTabDataRepository.populateTabWithData(viewModel.homeFragmentData,
                 "Bearer ${viewModel.jwtToken}")
             }
-            // updating the data in the liveData
-            viewModel.homeFragmentLiveData.value=viewModel.homeFragmentData
             //                       setting up fragment navigator component for this activity
             viewModel.fragmentNavigator=  FragmentNavigator(supportFragmentManager,HomeFragment(),
                 R.id.layoutForHomeFragments, addToBackstack = false)
-
+            // updating the data in the liveData
+            viewModel.homeFragmentLiveData.value=viewModel.homeFragmentData
         }
 
         }
