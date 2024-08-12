@@ -14,6 +14,7 @@ import com.example.moviemania.auth.component.LoginResponse
 import com.example.moviemania.auth.data.JwtLocalDataSource
 import com.example.moviemania.auth.data.JwtRemoteDataSource
 import com.example.moviemania.auth.data.JwtRepository
+import com.example.moviemania.components.App
 import com.example.moviemania.components.AppConfigurations
 import com.example.moviemania.components.BackPressController
 import com.example.moviemania.components.FragmentNavigator
@@ -25,15 +26,24 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    private  val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name="UserJwtToken")
-    val viewModel:MainViewModel by viewModels()
+//    private  val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name="UserJwtToken")
+private val viewModel:MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // creating instance of jwtRepo
-        viewModel.setJwtRepoInstance(JwtRepository((JwtLocalDataSource(dataStore))
+        viewModel.setJwtRepoInstance(JwtRepository((JwtLocalDataSource((application as App).dataStoreI!!))
         ,RetrofitConfigs(AppConfigurations.baseUrlBackend).config(JwtRemoteDataSource::class.java)))
+
+
+        // checking if jwt has expired
+        if(intent.getBooleanExtra("jwtExpired",false)){
+            //setting jwt storage location to empty since it has expired
+            lifecycleScope.launch {
+                viewModel.storeJwtLocally("")
+            }
+        }
 
         //setting up backPress controller
         BackPressController(this@MainActivity).backPressListener()
@@ -49,8 +59,8 @@ class MainActivity : AppCompatActivity() {
         }
         //  resetting fragmentManager during configuration  changes
         viewModel.fragmentNavigator?.fragmentManager=supportFragmentManager
-    lifecycleScope.launch(Dispatchers.Main) {
-        if(viewModel.checkJwtLocally()!=null){
+        lifecycleScope.launch(Dispatchers.Main) {
+        if(viewModel.checkJwtLocally()!=null&&viewModel.checkJwtLocally()!=""){
             //                moving to home activity
             val intent=Intent(this@MainActivity, HomeActivity::class.java)
             intent.putExtra("jwtToken",viewModel.checkJwtLocally())

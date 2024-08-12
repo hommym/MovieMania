@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 class JwtLocalDataSource(private val dataStore: DataStore<Preferences>) {
 
     companion object {
-        val dataKey = stringPreferencesKey("Jwt")
+        val dataKey: Preferences. Key<String> = stringPreferencesKey("Jwt")
     }
 
 

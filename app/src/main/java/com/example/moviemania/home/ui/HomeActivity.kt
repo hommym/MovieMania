@@ -138,7 +138,9 @@ class HomeActivity : AppCompatActivity() {
             else if(throwable is HttpException){
                 if(throwable.code()==401){
 //                    moving to main activity since jwt has expired
-                    startActivity(Intent(this@HomeActivity,MainActivity::class.java))
+                    val intent= Intent(this@HomeActivity,MainActivity::class.java)
+                    intent.putExtra("jwtExpired",true)
+                    startActivity(intent)
                     finish()
                 }else{
                     //                Toast message is temporary
