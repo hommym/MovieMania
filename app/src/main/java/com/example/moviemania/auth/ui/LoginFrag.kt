@@ -18,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
+
 class LoginFrag : Fragment() {
 
 
@@ -71,27 +72,39 @@ class LoginFrag : Fragment() {
                 lifecycleScope.launch(Dispatchers.Main) {
 //                  starting button to make button dissappear
                     layoutAnimator.startButtonClickAnimation(it as Button,views.loadingSpinner)
-//                the request sent to server
-                    val remoteJwt= fragActivityViewModel.getJwtRemotely(views.loginEmail.text.toString(),views.loginPassword.text.toString())
 
-                    if(remoteJwt!=null){
-                        //                moving to home activity
-                        startActivity(Intent(requireContext(),HomeActivity::class.java))
-                        requireActivity().finish()
+                    try {
+                        // the request sent to server
+                        val remoteJwt= fragActivityViewModel.getJwtRemotely(views.loginEmail.text.toString(),views.loginPassword.text.toString())
+                        if(remoteJwt!=null){
+                            // storing the jwt locally
+                            fragActivityViewModel.storeJwtLocally(remoteJwt as String)
+
+                            Toast.makeText(requireContext(),"Login Successfull",Toast.LENGTH_SHORT).show()
+
+                            //                moving to home activity
+                            val intent=Intent(requireContext(), HomeActivity::class.java)
+                            intent.putExtra("jwtToken",fragActivityViewModel.checkJwtLocally())
+                            startActivity(intent)
+                            requireActivity().finish()
+                        }
+                        else{
+//                         showing messages relating to network error
+                            Toast.makeText(requireContext(),"Network Error,Check Internet connection",Toast.LENGTH_SHORT).show()
+                        }
                     }
-                    else{
-//                      reversing button animation to bring back button
+                    catch (err:Exception){
+//                        showing message relating failed request
+                        Toast.makeText(requireContext(),"Login Failed:${err.message}",Toast.LENGTH_SHORT).show()
+                    }
+                    finally {
+                        //                      reversing button animation to bring back button
                         layoutAnimator.startButtonClickAnimation(it as Button,views.loadingSpinner,true)
 
 //                        enabling email and password text fields
                         views.loginEmail.disableEditText(true)
                         views.loginPassword.disableEditText(true)
-
-//                   This just temporary
-                        Toast.makeText(requireContext(),"Invalid Credentials",Toast.LENGTH_SHORT).show()
                     }
-
-
                 }
             }
             else{
@@ -117,3 +130,5 @@ class LoginFrag : Fragment() {
 
 
 }
+
+

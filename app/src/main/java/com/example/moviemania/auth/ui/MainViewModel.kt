@@ -1,5 +1,6 @@
 package com.example.moviemania.auth.ui
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.example.moviemania.auth.data.JwtRepository
@@ -15,7 +16,12 @@ class MainViewModel():ViewModel(),BaseViewModel {
 
 //    only set this property when using it in an activity
  override   var fragmentNavigator:FragmentNavigator?=null
- fun checkJwtLocally():String?{
+
+   suspend fun storeJwtLocally(token:String){
+        Log.d("Saving Jwt locally","Token=$token")
+        jwtRepo?.storeJwt(token)
+    }
+ suspend fun checkJwtLocally():String?{
 
 //    checking jwt locally (not implemented)
     val jwtToken:String?=jwtRepo?.getJwtLocal()

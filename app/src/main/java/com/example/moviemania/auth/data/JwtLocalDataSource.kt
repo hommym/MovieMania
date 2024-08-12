@@ -1,9 +1,11 @@
 package com.example.moviemania.auth.data
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class JwtLocalDataSource(private val dataStore: DataStore<Preferences>) {
@@ -17,17 +19,13 @@ class JwtLocalDataSource(private val dataStore: DataStore<Preferences>) {
 
         dataStore.edit {
             it[dataKey] = data
+            Log.d("Saving Jwt Locally","${it[dataKey]}")
         }
     }
 
-     fun getJwtLocally(): String? {
+   suspend  fun getJwtLocally(): String? {
+         return dataStore.data.first()[dataKey]
 
-        var jwtToken: String? = null
-
-        dataStore.data.map {
-            jwtToken = it[dataKey]
-        }
-        return jwtToken
     }
 
 }
