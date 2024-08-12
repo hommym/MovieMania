@@ -54,11 +54,9 @@ class HomeActivity : AppCompatActivity() {
                         // making the loading spinner disappeared
                         views.progressBar.visibility=View.GONE
                         views.bottomNavigation.visibility= View.VISIBLE
-                        //            setting the default tab when activity starts for the first time
-                        viewModel.currentTab=R.id.home_tab
 
-                        //        selecting the home tab of bottom navBar by default
-                        views.bottomNavigation.selectedItemId=viewModel.currentTab!!
+
+
                     }
                 }
 
@@ -165,6 +163,12 @@ class HomeActivity : AppCompatActivity() {
                 R.id.layoutForHomeFragments, addToBackstack = false)
             // updating the data in the liveData
             viewModel.homeFragmentLiveData.value=viewModel.homeFragmentData
+
+            //            setting the default tab when activity starts for the first time
+            viewModel.currentTab=R.id.home_tab
+
+            //        selecting the home tab of bottom navBar by default
+            views.bottomNavigation.selectedItemId=viewModel.currentTab!!
         }
 
         }
